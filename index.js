@@ -2,7 +2,8 @@ const path = require('path');
 const electron = require('electron');
 const TimerTray = require('./app/timer_tray');
 const MainWindow = require('./app/main_window');
-const { app, BrowserWindow, Tray } = electron;
+
+const { app, ipcMain } = electron;
 
 let mainWindow;
 let tray;
@@ -18,5 +19,7 @@ app.on('ready', () => {
 
 });
 
-
+ipcMain.on('update-timer', (event, timeLeft) => {
+    tray.setTitle(timeLeft);
+});
 
